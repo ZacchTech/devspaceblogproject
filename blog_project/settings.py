@@ -20,14 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ('django-insecure-7iumgabzf&)a*uhgrrm@_mc_lnay&!$!4!7!%o%agg&qjzc9(@')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-key-for-local')
 
 #'django-insecure-7iumgabzf&)a*uhgrrm@_mc_lnay&!$!4!7!%o%agg&qjzc9(@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =     True
-ALLOWED_HOSTS = ['*']
-
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+ALLOWED_HOSTS= os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
 # Application definition
 
@@ -49,6 +48,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -120,6 +120,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# This line is for WhiteNoise to compress your files
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 #medial root is the directry where uploaded file will be safe
 MEDIA_ROOT =os.path.join(BASE_DIR, 'media') 
