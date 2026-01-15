@@ -64,8 +64,7 @@ def profile(request):
         'u_form': u_form,
         'p_form': p_form
     }
-
-   return render(request, 'users/profile.html', context,{'hide_sidebar': True} )
+   return render(request, 'users/profile.html', {**context, 'hide_sidebar': True})
 
 def login_view(request):
     return render(request, 'users/login.html', {
