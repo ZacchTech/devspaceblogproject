@@ -14,42 +14,37 @@ import os
 from pathlib import Path
 import dj_database_url
 from dotenv import load_dotenv
+
 load_dotenv()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# BASE DIR  
+# # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
+# SECURITY
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-key-for-local')
-
-#'django-insecure-7iumgabzf&)a*uhgrrm@_mc_lnay&!$!4!7!%o%agg&qjzc9(@'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+
 ALLOWED_HOSTS = ['devspaceblogproject-1.onrender.com', '127.0.0.1', 'localhost']
 CSRF_TRUSTED_ORIGINS = ['https://devspaceblogproject-1.onrender.com']
 
-# Application definition
-
+# APPLICATIONS  definition
 INSTALLED_APPS = [
     'cloudinary_storage',
-    'django.contrib.staticfiles',
     'cloudinary',
     'whitenoise.runserver_nostatic',
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
     'crispy_bootstrap5',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-  
-   # 'django_browser_reload',
+    'django.contrib.staticfiles',
+    # 'django_browser_reload',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-   # 'django_browser_reload.middleware.BrowserReloadMiddleware',
+    # 'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
 
 ROOT_URLCONF = 'blog_project.urls'
@@ -83,84 +78,66 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blog_project.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+# DATABASES
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
         conn_max_age=600
     )
 }
-# Password validation
-# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
+# PASSWORD VALIDATION
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
-# Internationalization
-# https://docs.djangoproject.com/en/6.0/topics/i18n/
 
+# INTERNATIONALIZATION
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
-# --- STATIC AND MEDIA SETTINGS ---
+# STATIC FILES
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-
-STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ['CLOUD_NAME'],
-    'API_KEY': os.environ['CLOUD_API_KEY'],
-    'API_SECRET': os.environ['CLOUD_API_SECRET'],
-}
-
-# THE MAGIC LINE TO STOP THE CRASH
+# WhiteNoise storage
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 WHITENOISE_MANIFEST_STRICT = False
 WHITENOISE_USE_GZIP = True
 
-#medial root is the directry where uploaded file will be safe
-MEDIA_ROOT =os.path.join(BASE_DIR, 'media') 
-#import os at the top
-MEDIA_URL ='/media/'
+# MEDIA / CLOUDINARY
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME', ''),
+    'API_KEY': os.environ.get('CLOUD_API_KEY', ''),
+    'API_SECRET': os.environ.get('CLOUD_API_SECRET', ''),
+}
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# CRISPY FORMS
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-LOGIN_REDIRECT_URL ='blog-home'
-LOGIN_URL ='login'
 
-EMAIL_BACKEND ='django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST ='smtp.gmail.com'
-EMAIL_PORT =587
-EMAIL_PORT =True
+
+# AUTH
+LOGIN_REDIRECT_URL = 'blog-home'
+LOGIN_URL = 'login'
+
+# EMAIL 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+
+# DEFAULT AUTO FIELD
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
