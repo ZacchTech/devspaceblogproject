@@ -122,31 +122,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 # --- STATIC AND MEDIA SETTINGS ---
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# Make sure you actually created the 'static' folder in your project root!
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
-# These two lines satisfy the Cloudinary library requirements
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-# This dictionary satisfies Django 5.2 requirements
-
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUD_NAME', 'duzmzsoxw'),
-    'API_KEY': os.environ.get('CLOUD_API_KEY', '636161574921761'),
-    'API_SECRET': os.environ.get('CLOUD_API_SECRET', 'GXeKy7Fg0FWm6bKW66WR1jy0L3M'),
+    'CLOUD_NAME': os.environ['CLOUD_NAME'],
+    'API_KEY': os.environ['CLOUD_API_KEY'],
+    'API_SECRET': os.environ['CLOUD_API_SECRET'],
 }
 
 # THE MAGIC LINE TO STOP THE CRASH
