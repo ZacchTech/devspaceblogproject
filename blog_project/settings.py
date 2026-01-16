@@ -128,6 +128,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
+
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
@@ -145,7 +146,7 @@ CLOUDINARY_STORAGE = {
 
 # THE MAGIC LINE TO STOP THE CRASH
 WHITENOISE_MANIFEST_STRICT = False
-WHITENOISE_USE_GZIP = False
+WHITENOISE_USE_GZIP = True
 
 #medial root is the directry where uploaded file will be safe
 MEDIA_ROOT =os.path.join(BASE_DIR, 'media') 
