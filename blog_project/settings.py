@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'blog_project.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600
+        conn_max_age=600,
+        engine='django.db.backends.postgresql'  # optional to force Postgres
     )
 }
-
 # PASSWORD VALIDATION
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
