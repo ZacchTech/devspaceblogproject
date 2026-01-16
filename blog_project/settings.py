@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -124,6 +126,8 @@ USE_TZ = True
 # --- STATIC AND MEDIA SETTINGS ---
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
@@ -133,9 +137,11 @@ STORAGES = {
     },
 }
 
-CLOUDINARY_STORAGE = { 'CLOUD_NAME': os.environ.get('CLOUD_NAME', 'duzmzsoxw'),
-                      'API_KEY': os.environ.get('CLOUD_API_KEY', '636161574921761'), 
-                      'API_SECRET': os.environ.get('CLOUD_API_SECRET', 'GXeKy7Fg0FWm6bKW66WR1jy0L3M'), }
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ['CLOUD_NAME'],
+    'API_KEY': os.environ['CLOUD_API_KEY'],
+    'API_SECRET': os.environ['CLOUD_API_SECRET'],
+}
 
 # THE MAGIC LINE TO STOP THE CRASH
 WHITENOISE_MANIFEST_STRICT = False
