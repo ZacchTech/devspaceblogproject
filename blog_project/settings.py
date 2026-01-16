@@ -34,7 +34,9 @@ CSRF_TRUSTED_ORIGINS = ['https://devspaceblogproject-1.onrender.com']
 
 INSTALLED_APPS = [
     'cloudinary_storage',
+    'django.contrib.staticfiles',
     'cloudinary',
+    'whitenoise.runserver_nostatic',
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
@@ -44,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+  
    # 'django_browser_reload',
  
   
@@ -126,14 +128,16 @@ STATIC_URL = 'static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
 STORAGES = {
     "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+
 
 # CLOUDINARY Static settings
 CLOUDINARY_STORAGE = {
