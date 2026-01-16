@@ -112,12 +112,12 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# STATIC FILES
+# STATIC
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# WhiteNoise storage
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# WhiteNoise settings
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 WHITENOISE_MANIFEST_STRICT = False
 WHITENOISE_USE_GZIP = True
 
@@ -125,10 +125,11 @@ WHITENOISE_USE_GZIP = True
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUD_NAME', ''),
-    'API_KEY': os.environ.get('CLOUD_API_KEY', ''),
-    'API_SECRET': os.environ.get('CLOUD_API_SECRET', ''),
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME', ''),      # your Cloudinary cloud name
+    'API_KEY': os.environ.get('CLOUD_API_KEY', ''),      # your Cloudinary API key
+    'API_SECRET': os.environ.get('CLOUD_API_SECRET', ''),# your Cloudinary API secret
 }
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
