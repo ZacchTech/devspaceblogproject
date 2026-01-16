@@ -10,15 +10,15 @@ class profile(models.Model):
     def __str__(self):
          return f'{ self.user.username} profile'     
 
-def save(self, *args, **kwargs):
-    super().save(*args, **kwargs)
+#def save(self, *args, **kwargs):
+ #   super().save(*args, **kwargs)
 
-    try:
-        img = Image.open(self.image.path)
-    except Exception:
-        return
+  #
+  # img = Image.open(self.image.path)
+    #except Exception:
+       # return
 
-    if img.height > 300 or img.width > 300:
-        img.thumbnail((300, 300))
-        img.save(self.image.path)
+#    if img.height > 300 or img.width > 300:
+  #      img.thumbnail((300, 300))
+   #     img.save(self.image.path)
     
