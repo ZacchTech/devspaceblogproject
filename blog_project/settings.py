@@ -133,11 +133,9 @@ STORAGES = {
     },
 }
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ['CLOUD_NAME'],
-    'API_KEY': os.environ['CLOUD_API_KEY'],
-    'API_SECRET': os.environ['CLOUD_API_SECRET'],
-}
+CLOUDINARY_STORAGE = { 'CLOUD_NAME': os.environ.get('CLOUD_NAME', 'duzmzsoxw'),
+                      'API_KEY': os.environ.get('CLOUD_API_KEY', '636161574921761'), 
+                      'API_SECRET': os.environ.get('CLOUD_API_SECRET', 'GXeKy7Fg0FWm6bKW66WR1jy0L3M'), }
 
 # THE MAGIC LINE TO STOP THE CRASH
 WHITENOISE_MANIFEST_STRICT = False
