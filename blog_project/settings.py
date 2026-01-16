@@ -129,7 +129,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # These two lines satisfy the Cloudinary library requirements
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # This dictionary satisfies Django 5.2 requirements
@@ -138,9 +138,10 @@ STORAGES = {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
+
 
 # CLOUDINARY CONFIGURATION
 CLOUDINARY_STORAGE = {
@@ -151,7 +152,6 @@ CLOUDINARY_STORAGE = {
 
 # THE MAGIC LINE TO STOP THE CRASH
 WHITENOISE_MANIFEST_STRICT = False
-
 
 
 
