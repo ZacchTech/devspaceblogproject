@@ -48,8 +48,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
   
    # 'django_browser_reload',
- 
-  
 ]
 
 MIDDLEWARE = [
@@ -123,12 +121,18 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
-
+# --- STATIC AND MEDIA SETTINGS ---
 STATIC_URL = 'static/'
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Make sure you actually created the 'static' folder in your project root!
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+# These two lines satisfy the Cloudinary library requirements
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# This dictionary satisfies Django 5.2 requirements
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
@@ -138,15 +142,15 @@ STORAGES = {
     },
 }
 
-
-# CLOUDINARY Static settings
+# CLOUDINARY CONFIGURATION
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
-    'API_KEY': os.environ.get('CLOUD_API_KEY'),
-    'API_SECRET': os.environ.get('CLOUD_API_SECRET'),
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME', 'duzmzsoxw'),
+    'API_KEY': os.environ.get('CLOUD_API_KEY', '636161574921761'),
+    'API_SECRET': os.environ.get('CLOUD_API_SECRET', 'GXeKy7Fg0FWm6bKW66WR1jy0L3M'),
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
 
 #medial root is the directry where uploaded file will be safe
 MEDIA_ROOT =os.path.join(BASE_DIR, 'media') 
