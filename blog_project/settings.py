@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 import os
 from pathlib import Path
-import dj_database_url
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -31,20 +30,19 @@ CSRF_TRUSTED_ORIGINS = ['https://devspaceblogproject-1.onrender.com']
 # APPLICATIONS  definition
 INSTALLED_APPS = [
     'cloudinary_storage',
+    'django.contrib.staticfiles',
     'cloudinary',
     'whitenoise.runserver_nostatic',
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
     'crispy_bootstrap5',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    # 'django_browser_reload',
+       # 'django_browser_reload',
 ]
 
 MIDDLEWARE = [
@@ -81,20 +79,14 @@ WSGI_APPLICATION = 'blog_project.wsgi.application'
 # DATABASES
 
 # For local development use SQLite
-if os.environ.get("DATABASE_URL"):
-    DATABASES = {
-        "default": dj_database_url.config(
-            default=os.environ.get("DATABASE_URL"),
-            conn_max_age=600
-        )
-    }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
+import dj_database_url
+
+DATABASES = {
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",  # local fallback
+        conn_max_age=600
+    )
+}
 
 
 # PASSWORD VALIDATION
@@ -116,10 +108,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# WhiteNoise settings
+# Django will automatically detect app static folders
+
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+
 WHITENOISE_MANIFEST_STRICT = False
 WHITENOISE_USE_GZIP = True
+
 
 # MEDIA / CLOUDINARY
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
@@ -129,6 +124,7 @@ CLOUDINARY_STORAGE = {
     'API_KEY': os.environ.get('CLOUD_API_KEY', ''),      # your Cloudinary API key
     'API_SECRET': os.environ.get('CLOUD_API_SECRET', ''),# your Cloudinary API secret
 }
+
 
 
 MEDIA_URL = '/media/'

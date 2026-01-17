@@ -13,6 +13,7 @@ body {
     background: linear-gradient(135deg, #f8fafc 0%, #dbeafe 50%, #e0e7ff 100%);
     min-height: 100vh;
     color: #1f2937;
+    background: red;
 }
 
 h1,
