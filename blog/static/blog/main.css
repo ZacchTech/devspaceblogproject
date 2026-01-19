@@ -13,7 +13,6 @@ body {
     background: linear-gradient(135deg, #f8fafc 0%, #dbeafe 50%, #e0e7ff 100%);
     min-height: 100vh;
     color: #1f2937;
-    background: red;
 }
 
 h1,
@@ -51,7 +50,7 @@ ul {
 }
 
 .hero {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, #000000 0%, rgb(129, 113, 25) 100%);
     border-radius: 1.25rem;
     padding: 3.5rem;
     color: white;
@@ -103,7 +102,7 @@ ul {
 }
 
 .logo {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, #dcdce4 0%, #d2cf0c 100%);
     font-size: 2rem;
     font-weight: bolder;
     -webkit-background-clip: text;
@@ -259,7 +258,7 @@ a.article-title:hover {
 }
 
 .newsletter {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, #000000 0%, rgb(129, 113, 25) 100%);
     color: white;
     box-shadow: 0 20px 40px rgba(79, 70, 229, 0.3);
 }
@@ -326,9 +325,7 @@ a.article-title:hover {
     gap: 15rem;
 }
 
-.myname{
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-}
+
 
 /* CONTENT FOOTER */
 @media (max-width:760px) {

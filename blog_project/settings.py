@@ -104,13 +104,41 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# STATIC
+
+
+
+
+
+
+
+
+
+
+# settings.py
+
+
+
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # Where static files are collected
+# Add this if you have static files within your app directories
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
-# Django will automatically detect app static folders
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+
+
+
+
+
+
+# STATIC
+# STATIC_URL = '/static/'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# # Django will automatically detect app static folders
+
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 WHITENOISE_MANIFEST_STRICT = False
 WHITENOISE_USE_GZIP = True
